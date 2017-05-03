@@ -47,7 +47,7 @@
     "ember-cli-babel": "^5.1.6",
     "ember-cli-htmlbars": "^1.0.3",
     "ember-cli-node-assets": "^0.1.4",
-    "pikaday": "^1.4.0"
+    "pikaday": "git+https://github.com/AltSchool/pikaday.git#fix/patching-memory-leak"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

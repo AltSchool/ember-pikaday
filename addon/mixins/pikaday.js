@@ -57,7 +57,8 @@ export default Ember.Mixin.create({
       yearRange: this.determineYearRange(),
       minDate: this.get('minDate') || null,
       maxDate: this.get('maxDate') || null,
-      theme: this.get('theme') || null
+      theme: this.get('theme') || null,
+      allowBlank: this.get('allowBlank') || false
     };
   },
 
@@ -102,7 +103,7 @@ export default Ember.Mixin.create({
   },
 
   setMinDate: function() {
-    const { pikaday, minDate, value } = getProperties(this, [ 'pikaday', 'minDate', 'value' ]);
+    const { pikaday, minDate, value, allowBlank } = getProperties(this, [ 'pikaday', 'minDate', 'value', 'allowBlank' ]);
 
     if (minDate) {
       run.later(() => {
@@ -111,7 +112,7 @@ export default Ember.Mixin.create({
 
       // If the current date is lower than minDate we set date to minDate
       run.schedule('sync', () => {
-        if (value < minDate) {
+        if (!allowBlank && value < minDate) {
           pikaday.setDate(minDate);
         }
       });

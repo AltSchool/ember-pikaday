@@ -120,7 +120,7 @@ export default Ember.Mixin.create({
   },
 
   setMaxDate: function() {
-    const { pikaday, maxDate, value }  = getProperties(this, [ 'pikaday', 'maxDate', 'value' ]);
+    const { pikaday, maxDate, value, allowBlank }  = getProperties(this, [ 'pikaday', 'maxDate', 'value', 'allowBlank' ]);
 
     if (maxDate) {
       run.later(() => {
@@ -129,7 +129,7 @@ export default Ember.Mixin.create({
 
       // If the current date is greater than maxDate we set date to maxDate
       run.schedule('sync', () => {
-        if (value > maxDate) {
+        if (!allowBlank && value > maxDate) {
           pikaday.setDate(maxDate);
         }
       });

@@ -57,8 +57,7 @@ export default Ember.Mixin.create({
       yearRange: this.determineYearRange(),
       minDate: this.get('minDate') || null,
       maxDate: this.get('maxDate') || null,
-      theme: this.get('theme') || null,
-      allowBlank: this.get('allowBlank') || false
+      theme: this.get('theme') || null
     };
   },
 
@@ -103,7 +102,7 @@ export default Ember.Mixin.create({
   },
 
   setMinDate: function() {
-    const { pikaday, minDate, value, allowBlank } = getProperties(this, [ 'pikaday', 'minDate', 'value', 'allowBlank' ]);
+    const { pikaday, minDate, value } = getProperties(this, [ 'pikaday', 'minDate', 'value' ]);
 
     if (minDate) {
       run.later(() => {
@@ -112,7 +111,7 @@ export default Ember.Mixin.create({
 
       // If the current date is lower than minDate we set date to minDate
       run.schedule('sync', () => {
-        if (!allowBlank && value < minDate) {
+        if (value && value < minDate) {
           pikaday.setDate(minDate);
         }
       });
@@ -120,7 +119,7 @@ export default Ember.Mixin.create({
   },
 
   setMaxDate: function() {
-    const { pikaday, maxDate, value, allowBlank }  = getProperties(this, [ 'pikaday', 'maxDate', 'value', 'allowBlank' ]);
+    const { pikaday, maxDate, value }  = getProperties(this, [ 'pikaday', 'maxDate', 'value' ]);
 
     if (maxDate) {
       run.later(() => {
@@ -129,7 +128,7 @@ export default Ember.Mixin.create({
 
       // If the current date is greater than maxDate we set date to maxDate
       run.schedule('sync', () => {
-        if (!allowBlank && value > maxDate) {
+        if (value && value > maxDate) {
           pikaday.setDate(maxDate);
         }
       });
